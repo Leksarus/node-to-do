@@ -9,8 +9,8 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 	}
 	console.log('Connected to MongoDB server');
 
-	/*db.collection('Todos').insertOne({
-		text: 'Something to do',
+	db.collection('Todos').insertOne({
+		text: 'Something else to do',
 		completed: 'false'
 	}, (err, result) => {
 		if (err) {
@@ -18,7 +18,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 		}
 
 		console.log(JSON.stringify(result.ops, undefined, 2));
-	});*/
+	});
 
 	//Insert new doc into Users (name, age, location)
 
