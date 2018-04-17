@@ -10,7 +10,7 @@ if (!ObjectID.isValid(id)) {
 	console.log('ID not valid');
 }
 
-//Mongoose handles is as object
+//Mongoose handles id as object
 /*Todo.find({
 	_id: id
 }).then((todos) => {
