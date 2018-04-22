@@ -1,3 +1,5 @@
+require('./config/config.js');
+
 const _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -10,7 +12,7 @@ var {User} = require('./models/user');
 var app = express();
 // Set for Heroku purpose - PORT is set while using heroku
 // See also package.json engines changes
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -102,8 +104,8 @@ app.patch('/todos/:id', (req, res) => {
 	})
 })
 
-app.listen(port, () => {
-	console.log(`Started on port ${port}`);
+app.listen(process.env.PORT, () => {
+	console.log(`Started on port ${process.env.PORT}`);
 });
 
 module.exports = {app};
