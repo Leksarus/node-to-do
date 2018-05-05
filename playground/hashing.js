@@ -1,4 +1,22 @@
-const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+var password = '123dupadupa';
+
+/*bcrypt.genSalt(10, (err, salt) => {
+	bcrypt.hash(password, salt, (err, hash) => {
+		console.log(hash);
+	});
+});*/
+
+var hashedPassword = '$2a$10$b8aXSRGyg5AWUvSeByLMhuXmG1PuiaxnqRA/KfKiOTG3BUbNHNIIC';
+
+bcrypt.compare(password, hashedPassword, (err, res) => {
+	console.log(res);
+});
+
+/* ------------------------------------ */
+
+/*const jwt = require('jsonwebtoken');
 
 var data = {
 	id: 5
@@ -9,8 +27,9 @@ var token = jwt.sign(data, 'secretKey123');
 console.log(token);
 
 var decoded = jwt.verify(token,'secretKey123');
-console.log('decoded', decoded);
+console.log('decoded', decoded);*/
 
+/* ------------------------------------ */
 
 /*const {SHA256} = require('crypto-js');
 
