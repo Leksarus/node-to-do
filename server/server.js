@@ -8,6 +8,7 @@ var {ObjectID} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
+var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 // Set for Heroku purpose - PORT is set while using heroku
@@ -103,6 +104,26 @@ app.patch('/todos/:id', (req, res) => {
 		res.status(400).send(e);
 	})
 })
+
+app.post('/users', (req, res) => {
+	var data = _.pick(req.body, ['email', 'password']);
+	var user = new User(data);
+
+	user.save().then(() => {
+		return user.generateAuthToken();
+	}).then((token) => {
+		// x- creates custom header
+		res.header('x-auth', token).send(user);
+	}).catch((e) => {
+		res.status(400).send(e);
+	})
+});
+
+// using middleware
+app.get('/users/me', authenticate, (req, res) => {
+	// this function body is next() in middleware
+	res.send(req.user);
+});
 
 app.listen(process.env.PORT, () => {
 	console.log(`Started on port ${process.env.PORT}`);
