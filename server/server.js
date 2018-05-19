@@ -119,7 +119,7 @@ app.post('/users', (req, res) => {
 	})
 });
 
-// using middleware
+// using AUTHENTICATE middleware
 app.get('/users/me', authenticate, (req, res) => {
 	// this function body is next() in middleware
 	res.send(req.user);
@@ -137,6 +137,14 @@ app.post('/users/login', (req, res) => {
 		res.status(400).send();
 	});
 })
+
+app.delete('/users/me/token', authenticate, (req, res) => {
+	req.user.removeToken(req.token).then(() => {
+		res.status(200).send();
+	}, () => {
+		res.status(200).send();
+	})
+});
 
 app.listen(process.env.PORT, () => {
 	console.log(`Started on port ${process.env.PORT}`);
